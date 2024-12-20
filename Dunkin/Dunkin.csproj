@@ -108,6 +108,37 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bin\Debug\printEndingInventory.cs" />
+    <Compile Include="bin\Debug\printEndingInventory1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>printEndingInventory.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\printInventoryTotal.cs" />
+    <Compile Include="bin\Debug\printInventoryTotal1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>printInventoryTotal.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\printProductIssued.cs" />
+    <Compile Include="bin\Debug\printProductIssued1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>printProductIssued.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\printStock.cs" />
+    <Compile Include="bin\Debug\printStock1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>printStock.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\prntStockIssuance.cs" />
+    <Compile Include="bin\Debug\prntStockIssuance1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>prntStockIssuance.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\Stock.cs" />
     <Compile Include="dbDunkinDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +156,7 @@
     <Compile Include="EndingInventoryReport.Designer.cs">
       <DependentUpon>EndingInventoryReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="obj\x86\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="printEndingInventory.cs">
       <DependentUpon>printEndingInventory.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -199,6 +231,26 @@
     <Compile Include="Inventory.Designer.cs">
       <DependentUpon>Inventory.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="bin\Debug\printEndingInventory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>printEndingInventory1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\printInventoryTotal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>printInventoryTotal1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\printProductIssued.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>printProductIssued1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\printStock.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>printStock1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\prntStockIssuance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>prntStockIssuance1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExportToWord.resx">
       <DependentUpon>ExportToWord.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,6 +303,9 @@
       <DependentUpon>Inventory.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="bin\Debug\Dunkin.application" />
+    <None Include="bin\Debug\Dunkin.exe.config" />
+    <None Include="bin\Debug\Dunkin.exe.manifest" />
     <None Include="dbDunkinDataSet.xsc">
       <DependentUpon>dbDunkinDataSet.xsd</DependentUpon>
     </None>
@@ -262,6 +317,9 @@
     <None Include="dbDunkinDataSet.xss">
       <DependentUpon>dbDunkinDataSet.xsd</DependentUpon>
     </None>
+    <None Include="obj\x86\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug\Dunkin.csproj.AssemblyReference.cache" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -399,6 +457,64 @@
     <None Include="Resources\cofeedonut.jpg" />
     <None Include="Resources\color.png" />
     <None Include="Resources\3_maintenance_white1.png" />
+    <Content Include="bin\Debug\Aspose.Words.dll" />
+    <Content Include="bin\Debug\Aspose.Words.xml" />
+    <Content Include="bin\Debug\CRVsPackageLib.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.CrystalReports.Design.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.CrystalReports.Engine.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportSource.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Shared.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.VSDesigner.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Web.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Windows.Forms.dll" />
+    <Content Include="bin\Debug\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\Debug\DocumentFormat.OpenXml.Framework.dll" />
+    <Content Include="bin\Debug\DocumentFormat.OpenXml.Framework.xml" />
+    <Content Include="bin\Debug\DocumentFormat.OpenXml.xml" />
+    <Content Include="bin\Debug\Dunkin.exe" />
+    <Content Include="bin\Debug\Dunkin.pdb" />
+    <Content Include="bin\Debug\EnvDTE.dll" />
+    <Content Include="bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.GraphModel.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.GraphModel.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Interop.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.ProjectAggregator.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.RemoteControl.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.RpcContracts.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Shell.15.0.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Shell.Framework.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Telemetry.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Utilities.Internal.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\stdole.dll" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Content Include="bin\Debug\System.Collections.Immutable.dll" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Debug\VsWebSite.Interop.dll" />
+    <Content Include="obj\x86\Debug\TempPE\dbDunkinDataSet.Designer.cs.dll" />
+    <Content Include="obj\x86\Debug\TempPE\printEndingInventory.cs.dll" />
+    <Content Include="obj\x86\Debug\TempPE\printInventoryTotal.cs.dll" />
+    <Content Include="obj\x86\Debug\TempPE\printProductIssued.cs.dll" />
+    <Content Include="obj\x86\Debug\TempPE\prntStockIssuance.cs.dll" />
+    <Content Include="obj\x86\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
     <Content Include="Resources\dunkin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
