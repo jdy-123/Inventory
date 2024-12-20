@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Math;
+using System;
+using System.Collections.Concurrent;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
@@ -41,21 +44,39 @@ namespace Dunkin
                 {
                     con.Open();
 
-                    string selectQuery = "SELECT a.PRODUCT_CODE, a.PRODUCT_NAME, a.INVENTORY_BEGINNING," +
-                    "ISNULL(c.PO, 0) + ISNULL(c.PO2, 0) + ISNULL(c.PO3, 0) + ISNULL(c.PO4, 0) + ISNULL(c.PO5, 0) AS INBOUND," +
-                    "ISNULL(r.TotalQuantity, 0) + ISNULL(r.TotalAdjustment, 0) AS ISSUED," +
-                    " ISNULL(c.ENDING_INVENTORY, 0) as ENDING_INVENTORY, a.CATEGORY FROM tblInventory a " +
-                    "LEFT JOIN(SELECT PRODUCT_CODE,SUM(CAST(QUANTITY AS INT)) AS TotalQuantity,SUM(CAST(ADJUSTMENT AS INT)) AS TotalAdjustment " +
-                    "FROM tblReport WHERE cast(DATE as DATE) between @dateFrom and @dateTo " +
-                    "GROUP BY PRODUCT_CODE) r ON a.PRODUCT_CODE = r.PRODUCT_CODE " +
-                    "LEFT JOIN(SELECT PRODUCT_CODE, MAX(CASE WHEN COLUMN_UPDATED = 'PO' THEN CAST(NEW_VALUE AS INT) END) AS PO, " +
-                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO2' THEN CAST(NEW_VALUE AS INT) END) AS PO2, " +
-                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO3' THEN CAST(NEW_VALUE AS INT) END) AS PO3, " +
-                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO4' THEN CAST(NEW_VALUE AS INT) END) AS PO4, " +
-                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO5' THEN CAST(NEW_VALUE AS INT) END) AS PO5, " +
-                    "MAX(CASE WHEN COLUMN_UPDATED = 'ENDING_INVENTORY' THEN CAST(NEW_VALUE AS INT) END) AS ENDING_INVENTORY " +
-                    "FROM tblInventory_Audit WHERE cast(UPDATE_DATE as DATE) = @dateTo " +
-                    "GROUP BY PRODUCT_CODE ) c ON c.PRODUCT_CODE = a.PRODUCT_CODE ORDER BY CAST(a.PRODUCT_CODE AS INT) ASC";
+                    string selectQuery = "WITH LatestInventoryAudit AS ( " +
+                    "SELECT PRODUCT_CODE, COLUMN_UPDATED, CAST(NEW_VALUE AS INT) AS NEW_VALUE, " +
+                    "UPDATE_DATE, ROW_NUMBER() OVER (PARTITION BY PRODUCT_CODE, COLUMN_UPDATED " +
+                    "ORDER BY CASE WHEN UPDATE_DATE = @dateTo THEN 1 " +
+                    "WHEN UPDATE_DATE = @dateFrom THEN 2 ELSE 3 END) AS RN " +
+                    "FROM tblInventory_Audit WHERE CAST(UPDATE_DATE AS DATE) BETWEEN @dateFrom AND @dateTo ) " +
+
+                    "SELECT a.PRODUCT_CODE, a.PRODUCT_NAME, a.INVENTORY_BEGINNING, " +
+                    "ISNULL(c.PO, 0) + ISNULL(c.PO2, 0) + ISNULL(c.PO3, 0) + ISNULL(c.PO4, 0) + ISNULL(c.PO5, 0) AS INBOUND, " +
+                    "ISNULL(r.TotalQuantity, 0) + ISNULL(r.TotalAdjustment, 0) AS ISSUED, " +
+                    "ISNULL(c.ENDING_INVENTORY, 0) AS ENDING_INVENTORY, a.CATEGORY " +
+
+                    "FROM tblInventory a " +
+
+                    "LEFT JOIN ( " +
+                    "SELECT PRODUCT_CODE, " +
+                    "SUM(CAST(QUANTITY AS INT)) AS TotalQuantity, " +
+                    "SUM(CAST(ADJUSTMENT AS INT)) AS TotalAdjustment " +
+                    "FROM tblReport WHERE CAST(DATE AS DATE) BETWEEN @dateFrom AND @dateTo " +
+                    "GROUP BY PRODUCT_CODE ) r ON a.PRODUCT_CODE = r.PRODUCT_CODE " +
+
+                    "LEFT JOIN ( " +
+                    "SELECT PRODUCT_CODE, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO' AND RN = 1 THEN NEW_VALUE END) AS PO, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO2' AND RN = 1 THEN NEW_VALUE END) AS PO2, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO3' AND RN = 1 THEN NEW_VALUE END) AS PO3, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO4' AND RN = 1 THEN NEW_VALUE END) AS PO4, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'PO5' AND RN = 1 THEN NEW_VALUE END) AS PO5, " +
+                    "MAX(CASE WHEN COLUMN_UPDATED = 'ENDING_INVENTORY' AND RN = 1 THEN NEW_VALUE END) AS ENDING_INVENTORY " +
+                    "FROM LatestInventoryAudit GROUP BY PRODUCT_CODE ) c ON c.PRODUCT_CODE = a.PRODUCT_CODE " +
+
+                    "ORDER BY CAST(a.PRODUCT_CODE AS INT) ASC";
+
                     using (SqlCommand cmd = new SqlCommand(selectQuery, con))
                     {
                         cmd.Parameters.AddWithValue("@dateFrom", dtDateFrom.Value.ToString("yyyy-MM-dd"));

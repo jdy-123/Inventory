@@ -287,6 +287,7 @@ namespace Dunkin
                 int colShopIndex = dataGridView2.Columns["SHOP"].Index;
                 int colIdIndex = dataGridView2.Columns["ID"].Index;
                 int colAdjustmentIndex = dataGridView2.Columns["ADJUSTMENT"].Index;
+                int colUnitOfMeasurement = dataGridView2.Columns["UNIT_OF_MEASUREMENT"].Index;
 
 
                 // Check if the column changed is either QUANTITY or GROSS_AMOUNT
@@ -339,15 +340,16 @@ namespace Dunkin
                     {
                         string productCode = row.Cells[colProductCodeIndex].Value.ToString();
                         var adjusmentValue = row.Cells[colAdjustmentIndex].Value;
-
+                        string units = row.Cells[colUnitOfMeasurement].Value.ToString();
                         // Fetch the PRODUCT_NAME and GROSS_PRICE from the database based on PRODUCT_CODE
-                        (string productName, double grossPrice) = GetProductDetailsFromDatabase(productCode);
+                        (string productName, double grossPrice, string unit) = GetProductDetailsFromDatabase(productCode);
 
                         // Update the PRODUCT_NAME and GROSS_AMOUNT cells in the DataGridView
                         row.Cells[colProductNameIndex].Value = productName;  // Update PRODUCT_NAME
                         row.Cells[colGrossAmountIndex].Value = grossPrice;   // Update GROSS_AMOUNT (if needed)
-                                                                             // Check if QUANTITY is empty or null
-                                                                             // Check if QUANTITY is empty or null
+                        row.Cells[colUnitOfMeasurement].Value = unit;
+                        // Check if QUANTITY is empty or null
+                        // Check if QUANTITY is empty or null
                         if (adjusmentValue == null || string.IsNullOrEmpty(adjusmentValue.ToString()))
                         {
                             adjusmentValue = 0;  // Set to 0 if empty
@@ -446,7 +448,7 @@ namespace Dunkin
                             }
 
                             // Check if QUANTITY - ENDING_INVENTORY is negative
-                            if ((endingInventory + Convert.ToDouble(oldQuantity)) + Convert.ToDouble(adjustment) < quantity)
+                            if (endingInventory + Convert.ToDouble(oldQuantity) < quantity)
                             {
                                 var date = row.Cells[colDateIndex].Value;
                                 // Show error message if the condition is met
@@ -583,11 +585,12 @@ namespace Dunkin
 
             return (productCode, grossPrice);
         }
-        private (string ProductName, double GrossPrice) GetProductDetailsFromDatabase(string productCode)
+        private (string ProductName, double GrossPrice, string unit) GetProductDetailsFromDatabase(string productCode)
         {
             string productName = string.Empty;
+            string unit = string.Empty;
             double grossPrice = 0;
-            string query = "SELECT PRODUCT_NAME, GROSS_PRICE FROM tblStock WHERE PRODUCT_CODE = @productCode";
+            string query = "SELECT PRODUCT_NAME, GROSS_PRICE, UNIT_OF_MEASUREMENT FROM tblStock WHERE PRODUCT_CODE = @productCode";
 
             try
             {
@@ -605,6 +608,7 @@ namespace Dunkin
                             reader.Read();
                             productName = reader["PRODUCT_NAME"].ToString();
                             grossPrice = reader["GROSS_PRICE"] == "" ? 0 : Convert.ToDouble(reader["GROSS_PRICE"]);
+                            unit = reader["UNIT_OF_MEASUREMENT"].ToString();
                         }
                     }
                 }
@@ -614,7 +618,7 @@ namespace Dunkin
                 MessageBox.Show("Error fetching product details: " + ex.Message);
             }
 
-            return (productName, grossPrice);
+            return (productName, grossPrice, unit);
         }
         private void MakeColumnsReadOnly()
         {
