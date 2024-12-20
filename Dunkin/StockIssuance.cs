@@ -287,7 +287,6 @@ namespace Dunkin
                 int colShopIndex = dataGridView2.Columns["SHOP"].Index;
                 int colIdIndex = dataGridView2.Columns["ID"].Index;
                 int colAdjustmentIndex = dataGridView2.Columns["ADJUSTMENT"].Index;
-                int colUnitOfMeasurement = dataGridView2.Columns["UNIT_OF_MEASUREMENT"].Index;
 
 
                 // Check if the column changed is either QUANTITY or GROSS_AMOUNT
@@ -340,14 +339,12 @@ namespace Dunkin
                     {
                         string productCode = row.Cells[colProductCodeIndex].Value.ToString();
                         var adjusmentValue = row.Cells[colAdjustmentIndex].Value;
-                        string units = row.Cells[colUnitOfMeasurement].Value.ToString();
                         // Fetch the PRODUCT_NAME and GROSS_PRICE from the database based on PRODUCT_CODE
                         (string productName, double grossPrice, string unit) = GetProductDetailsFromDatabase(productCode);
 
                         // Update the PRODUCT_NAME and GROSS_AMOUNT cells in the DataGridView
                         row.Cells[colProductNameIndex].Value = productName;  // Update PRODUCT_NAME
                         row.Cells[colGrossAmountIndex].Value = grossPrice;   // Update GROSS_AMOUNT (if needed)
-                        row.Cells[colUnitOfMeasurement].Value = unit;
                         // Check if QUANTITY is empty or null
                         // Check if QUANTITY is empty or null
                         if (adjusmentValue == null || string.IsNullOrEmpty(adjusmentValue.ToString()))
@@ -448,7 +445,7 @@ namespace Dunkin
                             }
 
                             // Check if QUANTITY - ENDING_INVENTORY is negative
-                            if (endingInventory + Convert.ToDouble(oldQuantity) < quantity)
+                            if (endingInventory + Convert.ToDouble(oldQuantity) + Convert.ToDouble(adjustment) < quantity)
                             {
                                 var date = row.Cells[colDateIndex].Value;
                                 // Show error message if the condition is met
