@@ -108,37 +108,33 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bin\Debug\printEndingInventory.cs" />
-    <Compile Include="bin\Debug\printEndingInventory1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>printEndingInventory.rpt</DependentUpon>
+    <Compile Include="bin\Debug\printEndingInventory.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bin\Debug\printInventoryTotal.cs" />
-    <Compile Include="bin\Debug\printInventoryTotal1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>printInventoryTotal.rpt</DependentUpon>
+    <Compile Include="bin\Debug\printInventoryTotal.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bin\Debug\printProductIssued.cs" />
-    <Compile Include="bin\Debug\printProductIssued1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>printProductIssued.rpt</DependentUpon>
+    <Compile Include="bin\Debug\printProductIssued.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bin\Debug\printStock.cs" />
+    <Compile Include="bin\Debug\printStock.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="bin\Debug\printStock1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>printStock.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bin\Debug\prntStockIssuance.cs" />
+    <Compile Include="bin\Debug\prntStockIssuance.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="bin\Debug\prntStockIssuance1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>prntStockIssuance.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="bin\Debug\Stock.cs" />
     <Compile Include="dbDunkinDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,35 +153,11 @@
       <DependentUpon>EndingInventoryReport.cs</DependentUpon>
     </Compile>
     <Compile Include="obj\x86\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
-    <Compile Include="printEndingInventory.cs">
-      <DependentUpon>printEndingInventory.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="printProductIssued.cs">
-      <DependentUpon>printProductIssued.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="ShopManagement.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ShopManagement.Designer.cs">
       <DependentUpon>ShopManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="printInventoryTotal.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>printInventoryTotal.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="prntStockIssuance.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>prntStockIssuance.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
@@ -257,24 +229,8 @@
     <EmbeddedResource Include="EndingInventoryReport.resx">
       <DependentUpon>EndingInventoryReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="printEndingInventory.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>printEndingInventory.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="printProductIssued.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>printProductIssued.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="ShopManagement.resx">
       <DependentUpon>ShopManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="printInventoryTotal.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>printInventoryTotal.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="prntStockIssuance.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>prntStockIssuance.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
